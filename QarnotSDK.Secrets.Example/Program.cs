@@ -17,11 +17,11 @@ var secretClient = shouldRunLocally
   : SecretsClientFactory.Build();
 
 // Query the secret as a string.
-var secret1 = await secretClient.GetSecret("path/to/secret", default);
+var secret1 = await secretClient.GetSecretRaw("path/to/secret", default);
 Console.WriteLine($"Secret at `path/to/secret` is `{secret1}`");
 
 // Query the secret and JSON-deserialize it.
-var secret2 = await secretClient.GetSecret("integer/secret", default);
+var secret2 = await secretClient.GetSecret<int>("integer/secret", default);
 Console.WriteLine($"Secret at `integer/secret` is `{secret2}`");
 
 
@@ -50,7 +50,7 @@ public class MockSecretsClient : ISecretsClient
         _secrets = secrets;
     }
 
-    public Task<string> GetSecret(string path, CancellationToken ct) =>
+    public Task<string> GetSecretRaw(string path, CancellationToken ct) =>
         Task.FromResult(_secrets[path]);
 
     public Task<T> GetSecret<T>(string path, CancellationToken ct) =>

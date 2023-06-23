@@ -11,7 +11,7 @@ public class MockQarnotSecretsClient : ISecretsClient
         _secrets = secrets;
     }
 
-    public Task<string> GetSecret(string path, CancellationToken ct) =>
+    public Task<string> GetSecretRaw(string path, CancellationToken ct) =>
         Task.FromResult(_secrets[path]);
 
     public Task<T> GetSecret<T>(string path, CancellationToken ct) =>
