@@ -19,4 +19,7 @@ public class MockQarnotSecretsClient : ISecretsClient
             JsonSerializer.Deserialize<T>(_secrets[path])
             ?? throw new JsonException($"can't deserialize to {typeof(T)}")
         );
+
+    public Task<IEnumerable<string>> ListSecrets(string prefix = "", bool recursive = false, CancellationToken ct = default) =>
+        Task.FromResult(_secrets.Keys.Where(k => k.StartsWith(prefix)));
 }

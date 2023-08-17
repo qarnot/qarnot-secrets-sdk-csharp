@@ -24,6 +24,10 @@ Console.WriteLine($"Secret at `path/to/secret` is `{secret1}`");
 var secret2 = await secretClient.GetSecret<int>("integer/secret", default);
 Console.WriteLine($"Secret at `integer/secret` is `{secret2}`");
 
+// List all the secrets keys starting with a specific prefix.
+var secrets = await secretClient.ListSecrets("path/to");
+var joinedKeys = string.Join(", ", secrets);
+Console.WriteLine($"Secrets starting with `path/to`: {joinedKeys}");
 
 // A mock factory implementation with a few secrets for testing purposes.
 // If the application is meant to be ran outside of a Qarnot task for other
@@ -58,4 +62,7 @@ public class MockSecretsClient : ISecretsClient
             JsonSerializer.Deserialize<T>(_secrets[path])
             ?? throw new JsonException($"can't deserialize secret to {typeof(T)}")
         );
+
+    public Task<IEnumerable<string>> ListSecrets(string prefix = "", bool recursive = false, CancellationToken ct = default) =>
+      Task.FromResult(_secrets.Keys.Where(k => k.StartsWith(prefix)));
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,5 +8,6 @@ namespace QarnotSDK.Secrets
     {
         Task<string> GetSecretRaw(string path, CancellationToken ct);
         Task<T> GetSecret<T>(string path, CancellationToken ct);
+        Task<IEnumerable<string>> ListSecrets(string prefix = "", bool recursive = false, CancellationToken ct = default);
     }
 }

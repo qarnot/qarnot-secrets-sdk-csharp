@@ -7,3 +7,7 @@ Console.WriteLine(secret1);
 
 var secret2 = await client.GetSecret<int>("integer/secret", default);
 Console.WriteLine(secret2);
+
+var secrets =  await client.ListSecrets("path/to");
+Console.WriteLine(string.Join(", ", secrets));
+

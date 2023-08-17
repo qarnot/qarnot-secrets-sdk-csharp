@@ -49,7 +49,7 @@ def main():
 
     stdout = str(proc.stdout)
     if args.expected_stdout not in stdout:
-        report_error(f"expect stdout to contain {expected_stdout}", proc)
+        report_error(f"expect stdout to contain {args.expected_stdout}", proc)
 
     print("PASSED: Internal factory loaded")
 
