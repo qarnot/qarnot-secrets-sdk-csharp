@@ -11,3 +11,7 @@ Console.WriteLine(secret2);
 var secrets =  await client.ListSecrets("path/to");
 Console.WriteLine(string.Join(", ", secrets));
 
+var secretsAndValues =  await client.ListAndGetSecretsRaw("");
+foreach (var kvp in secretsAndValues) {
+    Console.WriteLine("{0}: {1}", kvp.Key, kvp.Value);
+}
