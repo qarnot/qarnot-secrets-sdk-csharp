@@ -67,8 +67,5 @@ public class MockSecretsClient : ISecretsClient
       Task.FromResult(_secrets.Keys.Where(k => k.StartsWith(prefix)));
 
     public Task<IDictionary<string, string>> ListAndGetSecretsRaw(string prefix = "", bool recursive = false, CancellationToken ct = default) =>
-        Task.FromResult(
-            (IDictionary<string, string>) _secrets.Where(kvp => kvp.Key.StartsWith(prefix))
-                                                  .ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
-        );
+      Task.FromResult(_secrets);
 }
